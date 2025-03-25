@@ -2,6 +2,7 @@
 
 Creates a PDF you can use as a template for your e-writer.
 
+Unlike most other PDF generators, PDFNote has the ability tobgenerate PDFs directly, ithout needing to print the via your web browser.
 
 ## Buildng and running the application
 
@@ -51,3 +52,9 @@ The `Cover` values are indented - we plan to support other pages and this is how
 
 ### Note regarding Remarkable 2
 I've not tested this software on a Remarkable2, though I have coded it to support the screen resolution listed on Remarkables' web site.
+
+## Credits and Thanks
+
+QuestPDF for the PDF Writer,
+YamlDotNet for the YAML parser,
+Brian Schwabauer for the https://github.com/brianschwabauer/remarkably-organized library.
