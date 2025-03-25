@@ -1,4 +1,4 @@
-# Document Writer
+# PDFNote
 
 Creates a PDF you can use as a template for your e-writer.
 
