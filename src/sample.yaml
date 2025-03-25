@@ -1,0 +1,8 @@
+FileName: sample.pdf
+Title: Document Title
+Reader: RemarkablePaperPro
+Orientation: Portrait
+Cover:
+  Header: Document Header
+  Symbol: "☕"  # "\U0001683F"
+  Color: 01579B

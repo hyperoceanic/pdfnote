@@ -1,0 +1,12 @@
+src/sample.pdf
+src/app/bin/**/*/
+src/app/obj/**/*/
+src/lib/bin/**/*/
+src/lib/obj/
+
+src/app/obj/app.csproj.nuget.dgspec.json
+src/app/obj/app.csproj.nuget.g.props
+src/app/obj/app.csproj.nuget.g.targets
+src/app/obj/project.assets.json
+src/app/obj/project.nuget.cache
+.DS_Store
