@@ -2,7 +2,7 @@
 
 Creates a PDF you can use as a template for your e-writer.
 
-Unlike most other PDF generators, PDFNote has the ability tobgenerate PDFs directly, ithout needing to print the via your web browser.
+Unlike most other PDF generators, PDFNote has the ability to generate PDFs directly, without needing to print the via your web browser.
 
 ## Buildng and running the application
 
