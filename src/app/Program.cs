@@ -2,6 +2,7 @@
 using YamlDotNet.Serialization.NamingConventions;
 
 using PDFNote;
+using System.Diagnostics;
 
 internal class Program
 {
@@ -20,7 +21,7 @@ internal class Program
         if (!File.Exists(configFile))
         {
             Console.WriteLine($"Creating {configFile}.");
-            PDFNote.DocumentModel doc = BuildDoc();
+            PDFNote.DocumentModel doc = Sample.BuildDoc();
             string yaml = ToYaml(doc);
             Console.WriteLine(yaml);
             File.WriteAllText(configFile, yaml);
@@ -64,24 +65,5 @@ internal class Program
 
         var result = serializer.Serialize(doc);
         return result;
-    }
-
-    private static DocumentModel BuildDoc()
-    {
-        DocumentModel doc = new()
-        {
-            Title = "Document Title",
-            FileName = "sample.pdf",
-            Orientation = Orientation.Portrait,
-            Reader = Reader.RemarkablePaperPro,
-        };
-
-        doc.Cover = new()
-        {
-            Header = "Document Header",
-            Symbol = "𖠿",
-            Color = "01579B"
-        };
-        return doc;
     }
 }

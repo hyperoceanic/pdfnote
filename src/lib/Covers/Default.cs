@@ -6,7 +6,7 @@ namespace PDFNote.Covers
 
     public class DefaultCoverWriter : CoverWriter
     {
-
+        public DefaultCoverWriter(DocumentModel model) : base(model) { }
         public override void WriteCoverHeader(PageDescriptor page, string fontFamily, Color fontColor, string header)
         {
             page.Header()

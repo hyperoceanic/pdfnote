@@ -23,6 +23,8 @@ namespace PDFNote
         public Reader Reader { get; set; }
         public Orientation Orientation { get; set; }
         public CoverModel Cover { get; set; }
+
+        public IndexedPagesModel IndexedPages { get; set; }
     }
 
     public class CoverModel
@@ -30,5 +32,10 @@ namespace PDFNote
         public string Header { get; set; }
         public String Symbol { get; set; }
         public String Color { get; set; }
+    }
+
+    public class IndexedPagesModel
+    {
+        public int PageCount { get; set; }
     }
 }

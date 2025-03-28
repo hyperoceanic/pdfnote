@@ -17,53 +17,30 @@ namespace PDFNote
 
         private PDFNote.Covers.CoverWriter GetCoverWriter(DocumentModel model)
         {
-            return new PDFNote.Covers.DefaultCoverWriter();
+            return new PDFNote.Covers.DefaultCoverWriter(model);
         }
-        private void CreateCoverPage(IDocumentContainer container)
+
+        private void CreateIndexedPages(IDocumentContainer container)
         {
-            container.Page(page =>
-            {
-                string fontFamily = Fonts.TimesNewRoman;
-                Color fontColor = Colors.White;
-
-                page.Size(DocUtil.GetPageSize(model));
-                page.PageColor(DocUtil.GetColor(model.Cover.Color));
-
-                if (!String.IsNullOrEmpty(model.Cover.Header))
-                {
-                    coverWriter.WriteCoverHeader(page, fontFamily, fontColor, model.Cover.Header);
-                }
-
-                page.Content()
-                    .PaddingVertical(5, Unit.Point)
-                    .PaddingHorizontal(5, Unit.Point)
-                    .Column(column =>
-                        {
-                            if (!String.IsNullOrEmpty(model.Cover.Symbol))
-                            {
-                                coverWriter.WriteCoverSymbol(column, fontFamily, fontColor, model.Cover.Symbol);
-                            }
-
-                            if (!String.IsNullOrEmpty(model.Title))
-                            {
-                                coverWriter.WriteCoverTitle(column, fontFamily, fontColor, model.Title);
-                            }
-                        });
-
-            });
 
         }
-
         public void Create(DocumentModel model)
         {
             this.model = model;
-            this.coverWriter = GetCoverWriter(model);
-
 
             Console.WriteLine($"Creating {model.FileName}");
             var result = Document.Create(container =>
             {
-                CreateCoverPage(container);
+                if (model.Cover != null)
+                {
+                    this.coverWriter = GetCoverWriter(model);
+                    this.coverWriter.CreateCoverPage(container);
+                }
+
+                if (model.IndexedPages != null)
+                {
+                    CreateIndexedPages(container);
+                }
             })
             .WithSettings(new DocumentSettings
             {
