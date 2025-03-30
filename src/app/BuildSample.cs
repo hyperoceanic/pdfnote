@@ -2,7 +2,7 @@ using PDFNote;
 
 internal static class Sample
 {
-    internal static PDFNote.DocumentModel BuildDoc()
+    internal static DocumentModel BuildDoc()
     {
         DocumentModel doc = new()
         {
@@ -19,12 +19,11 @@ internal static class Sample
             Color = "01579B"
         };
 
-        doc.IndexedPages = new()
+        doc.NumberedPages = new()
         {
             PageCount = 120,
         };
 
         return doc;
-
     }
 }

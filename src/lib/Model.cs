@@ -1,6 +1,3 @@
-using System.Drawing;
-using System.Runtime.CompilerServices;
-
 namespace PDFNote
 {
     public enum Orientation
@@ -23,8 +20,7 @@ namespace PDFNote
         public Reader Reader { get; set; }
         public Orientation Orientation { get; set; }
         public CoverModel Cover { get; set; }
-
-        public IndexedPagesModel IndexedPages { get; set; }
+        public NumberedPagesModel NumberedPages { get; set; }
     }
 
     public class CoverModel
@@ -34,7 +30,7 @@ namespace PDFNote
         public String Color { get; set; }
     }
 
-    public class IndexedPagesModel
+    public class NumberedPagesModel
     {
         public int PageCount { get; set; }
     }

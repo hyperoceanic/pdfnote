@@ -4,5 +4,7 @@ Reader: RemarkablePaperPro
 Orientation: Portrait
 Cover:
   Header: Document Header
-  Symbol: "☕"  # "\U0001683F"
+  Symbol: "\U0001683F"
   Color: 01579B
+NumberedPages:
+    PageCount: 120

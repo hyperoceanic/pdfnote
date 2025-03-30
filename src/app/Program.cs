@@ -1,8 +1,6 @@
-﻿using YamlDotNet.Serialization;
+﻿using PDFNote;
+using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
-
-using PDFNote;
-using System.Diagnostics;
 
 internal class Program
 {
@@ -21,7 +19,7 @@ internal class Program
         if (!File.Exists(configFile))
         {
             Console.WriteLine($"Creating {configFile}.");
-            PDFNote.DocumentModel doc = Sample.BuildDoc();
+            DocumentModel doc = Sample.BuildDoc();
             string yaml = ToYaml(doc);
             Console.WriteLine(yaml);
             File.WriteAllText(configFile, yaml);
@@ -31,10 +29,10 @@ internal class Program
 
         var model = Load(configFile);
 
-        var x = new DocCreator();
-        x.Create(model);
+        var x = new DocumentWriter(model);
+        x.Create();
 
-        Console.WriteLine("DONE.");
+        Console.WriteLine("Done.");
     }
 
     private static DocumentModel Load(string filename)
