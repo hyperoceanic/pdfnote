@@ -13,7 +13,6 @@ public class DefaultCoverWriter : IPageSetWriter
         this.model = model;
     }
 
-
     public DocState DocumentStart(IDocumentContainer container, DocState state)
     {
         container.Page(page =>

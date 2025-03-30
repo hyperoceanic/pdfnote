@@ -34,19 +34,19 @@ public abstract class NumberedPagesWriter : IPageSetWriter
             page.Size(DocUtil.GetPageSize(model));
             page.PageColor(DocUtil.GetColor(model.Cover.Color));
 
-            if (!string.IsNullOrEmpty(model.Cover.Header))
-                WriteCoverHeader(page, fontFamily, fontColor, model.Cover.Header);
-
-            page.Content()
-                .PaddingVertical(5)
-                .PaddingHorizontal(5)
-                .Column(column =>
-                {
-                    if (!string.IsNullOrEmpty(model.Cover.Symbol))
-                        WriteCoverSymbol(column, fontFamily, fontColor, model.Cover.Symbol);
-
-                    if (!string.IsNullOrEmpty(model.Title)) WriteCoverTitle(column, fontFamily, fontColor, model.Title);
-                });
+            // if (!string.IsNullOrEmpty(model.Cover.Header))
+            //     WriteCoverHeader(page, fontFamily, fontColor, model.Cover.Header);
+            //
+            // page.Content()
+            //     .PaddingVertical(5)
+            //     .PaddingHorizontal(5)
+            //     .Column(column =>
+            //     {
+            //         if (!string.IsNullOrEmpty(model.Cover.Symbol))
+            //             WriteCoverSymbol(column, fontFamily, fontColor, model.Cover.Symbol);
+            //
+            //         if (!string.IsNullOrEmpty(model.Title)) WriteCoverTitle(column, fontFamily, fontColor, model.Title);
+            //     });
         });
     }
 }

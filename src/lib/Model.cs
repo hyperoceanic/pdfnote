@@ -33,5 +33,6 @@ namespace PDFNote
     public class NumberedPagesModel
     {
         public int PageCount { get; set; }
+        public int LinesPerPage { get; set; } = 30;
     }
 }
