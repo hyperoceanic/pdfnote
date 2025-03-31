@@ -20,6 +20,11 @@ public class DocumentWriter
         return new DefaultCoverWriter(model);
     }
 
+    private IPageSetWriter GetNumberedPagesWriter(DocumentModel model)
+    {
+        return new NumberedPagesWriter(model);
+    }
+
     public void Create()
     {
         Console.WriteLine($"Creating {_model.FileName}");
@@ -29,6 +34,8 @@ public class DocumentWriter
         List<IPageSetWriter> pageWriters = new();
 
         if (_model.Cover != null) pageWriters.Add(GetCoverWriter(_model));
+
+        if (_model.NumberedPages != null) pageWriters.Add(GetNumberedPagesWriter(_model));
 
         var result = Document.Create(container =>
             {

@@ -1,4 +1,5 @@
 ﻿using PDFNote;
+using PDFNote.Lib;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
