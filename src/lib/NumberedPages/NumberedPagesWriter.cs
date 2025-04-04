@@ -8,6 +8,7 @@ public class NumberedPagesWriter : IPageSetWriter
 {
     private readonly DocumentModel _model;
 
+
     public NumberedPagesWriter(DocumentModel model)
     {
         _model = model;
@@ -50,15 +51,25 @@ public class NumberedPagesWriter : IPageSetWriter
                         }
                     });
 
-                    table.Cell().ColumnSpan(1)
-                        .Background(Colors.Grey.Lighten2).Element(CellStyle)
-                        .Text("\u279e").FontSize(42F);
+                    for (var x = 0; x < _model.NumberedPages.PageCount; x++)
+                        table.Cell().ColumnSpan(1)
+                            .SectionLink($"NumberedPages-{x}") // link to page
+                            .Section($"NumberedPagesContent-{x}") // target for link back
+                            .Element(CellStyle)
+                            .Text("\u279e").FontSize(42F)
+                            ;
 
-                    static IContainer CellStyle(IContainer container)
+                    IContainer CellStyle(IContainer container)
                     {
-                        return container.Border(1).Padding(10);
+                        return container
+                            .Border(1)
+                            .Padding(10);
                     }
                 });
+
+            page.Footer()
+                .PaddingTop(50F)
+                ;
         });
 
         return state;
@@ -66,41 +77,59 @@ public class NumberedPagesWriter : IPageSetWriter
 
     public DocState DocumentEnd(IDocumentContainer container, DocState state)
     {
+        var fontFamily = Fonts.TimesNewRoman;
+        var fontColor = Colors.Black;
+
+        void PageHeader(PageDescriptor page, int index)
+        {
+            page.Header()
+                .Section($"NumberedPages-{index}")
+                .SectionLink($"NumberedPagesContent-{index}")
+                .PaddingTop(50F)
+                .PaddingLeft(20F)
+                .Text($"Page {index + 1}")
+                .AlignStart()
+                .FontSize(80)
+                .FontFamily(fontFamily)
+                .FontColor(fontColor);
+        }
+
+        void OnePage(PageDescriptor page, int index)
+        {
+            var pageSize = DocUtil.GetPageSize(_model);
+            page.Size(pageSize);
+
+            page.PageColor(Colors.White);
+
+            PageHeader(page, index);
+
+            page.Content()
+                .Column(col =>
+                {
+                    for (var x = 0; x < LineCount(); x++)
+                        col.Item()
+                            .PaddingVertical(LineSpacing())
+                            .LineHorizontal(2)
+                            .LineColor(Colors.Black);
+                });
+
+            page.Footer()
+                .PaddingTop(50F)
+                ;
+        }
+
+        for (var x = 0; x < _model.NumberedPages.PageCount; x++) container.Page(page => OnePage(page, x));
+
         return state;
     }
 
-    public void CreateIndexPages(IDocumentContainer container)
+    private int LineCount()
     {
-        container.Page(page =>
-        {
-            // var fontFamily = Fonts.TimesNewRoman;
-            // var fontColor = Colors.Black;
-            //
-            // page.Size(DocUtil.GetPageSize(model));
-            // page.PageColor(DocUtil.GetColor(model.Cover.Color));
-            //
-            // page.Header()
-            //     .PaddingTop(100F)
-            //     .PaddingLeft(100F)
-            //     .Text("Contents")
-            //     .AlignStart()
-            //     .FontSize(96)
-            //     .FontFamily(fontFamily)
-            //     .FontColor(fontColor);
+        return _model.NumberedPages.LinesPerPage;
+    }
 
-            // if (!string.IsNullOrEmpty(model.Cover.Header))
-            //     WriteCoverHeader(page, fontFamily, fontColor, model.Cover.Header);
-            //
-            // page.Content()
-            //     .PaddingVertical(5)
-            //     .PaddingHorizontal(5)
-            //     .Column(column =>
-            //     {
-            //         if (!string.IsNullOrEmpty(model.Cover.Symbol))
-            //             WriteCoverSymbol(column, fontFamily, fontColor, model.Cover.Symbol);
-            //
-            //         if (!string.IsNullOrEmpty(model.Title)) WriteCoverTitle(column, fontFamily, fontColor, model.Title);
-            //     });
-        });
+    private int LineSpacing()
+    {
+        return 31;
     }
 }

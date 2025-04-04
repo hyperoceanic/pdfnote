@@ -1,0 +1,11 @@
+FileName: /Users/marksmith/Projects/pdfnote/techlead.pdf
+Title: Tech Lead Playbook
+Reader: RemarkablePaperPro
+Orientation: Portrait
+Cover:
+    Header: Mark Smith
+    Symbol: "\U0001683F"
+    Color: 01579B
+NumberedPages:
+    PageCount: 120
+    LinesPerPage: 30
