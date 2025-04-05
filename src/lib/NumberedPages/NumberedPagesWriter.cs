@@ -8,7 +8,6 @@ public class NumberedPagesWriter : IPageSetWriter
 {
     private readonly DocumentModel _model;
 
-
     public NumberedPagesWriter(DocumentModel model)
     {
         _model = model;
@@ -25,10 +24,10 @@ public class NumberedPagesWriter : IPageSetWriter
             page.PageColor(Colors.White);
 
             page.Header()
-                .PaddingTop(100F)
-                .PaddingLeft(100F)
-                .Text("Contents")
-                .AlignStart()
+                .PaddingTop(80F)
+                .PaddingBottom(20F)
+                .Text(_model.Title)
+                .AlignCenter()
                 .FontSize(96)
                 .FontFamily(fontFamily)
                 .FontColor(fontColor);
@@ -56,7 +55,7 @@ public class NumberedPagesWriter : IPageSetWriter
                             .SectionLink($"NumberedPages-{x}") // link to page
                             .Section($"NumberedPagesContent-{x}") // target for link back
                             .Element(CellStyle)
-                            .Text("\u279e").FontSize(42F)
+                            .Text($"{x + 1}").FontSize(42F)
                             ;
 
                     IContainer CellStyle(IContainer container)
@@ -68,8 +67,15 @@ public class NumberedPagesWriter : IPageSetWriter
                 });
 
             page.Footer()
-                .PaddingTop(50F)
-                ;
+                .PaddingTop(10F)
+                .PaddingBottom(50F)
+                .AlignCenter()
+                .Text(_model.Cover.Header)
+                .AlignCenter()
+                .FontSize(40)
+                .FontFamily(fontFamily)
+                .FontColor(fontColor);
+            ;
         });
 
         return state;
@@ -84,14 +90,8 @@ public class NumberedPagesWriter : IPageSetWriter
         {
             page.Header()
                 .Section($"NumberedPages-{index}")
-                .SectionLink($"NumberedPagesContent-{index}")
-                .PaddingTop(50F)
-                .PaddingLeft(20F)
-                .Text($"Page {index + 1}")
-                .AlignStart()
-                .FontSize(80)
-                .FontFamily(fontFamily)
-                .FontColor(fontColor);
+                .Height(100F)
+                ;
         }
 
         void OnePage(PageDescriptor page, int index)
@@ -109,13 +109,22 @@ public class NumberedPagesWriter : IPageSetWriter
                     for (var x = 0; x < LineCount(); x++)
                         col.Item()
                             .PaddingVertical(LineSpacing())
+                            .AlignBottom()
                             .LineHorizontal(2)
                             .LineColor(Colors.Black);
                 });
 
             page.Footer()
-                .PaddingTop(50F)
-                ;
+                .PaddingTop(10F)
+                .PaddingBottom(80F)
+                .AlignCenter()
+                .SectionLink($"NumberedPagesContent-{index}")
+                .Text($"{_model.Title} - Page {index + 1}")
+                .AlignCenter()
+                .FontSize(40)
+                .FontFamily(fontFamily)
+                .FontColor(fontColor);
+            ;
         }
 
         for (var x = 0; x < _model.NumberedPages.PageCount; x++) container.Page(page => OnePage(page, x));
