@@ -26,24 +26,12 @@ public class NumberedPagesWriter : IPageSetWriter
             page.Header()
                 .PaddingTop(80F)
                 .PaddingBottom(20F)
+                .PaddingLeft(20F)
                 .Text(_model.Title)
                 .AlignCenter()
                 .FontSize(96)
                 .FontFamily(fontFamily)
                 .FontColor(fontColor);
-
-            IContainer CellStyle(IContainer container)
-            {
-                if (_model.Handedness == Handedness.Right)
-                    return container
-                        .Border(1F)
-                        .AlignRight()
-                        .Padding(20);
-                return container
-                    .Border(1)
-                    .AlignLeft()
-                    .Padding(10);
-            }
 
             page.Content()
                 .Table(table =>
@@ -110,14 +98,27 @@ public class NumberedPagesWriter : IPageSetWriter
             page.Header()
                 .Section($"NumberedPages-{index}")
                 .Height(100F)
+                .Element(CellStyle)
                 .SectionLink($"NumberedPagesContent-{index}")
                 .Text($"Page {index + 1}")
                 .AlignLeft()
                 .FontSize(40)
                 .FontFamily(fontFamily)
                 .FontColor(Color.FromHex("#d3d3d3"));
-
             ;
+
+            IContainer CellStyle(IContainer container)
+            {
+                if (_model.Handedness == Handedness.Right)
+                    return container
+                        .Border(1F)
+                        .AlignRight()
+                        .Padding(20);
+                return container
+                    .Border(1)
+                    .AlignLeft()
+                    .Padding(10);
+            }
         }
 
         void OnePage(PageDescriptor page, int index)
