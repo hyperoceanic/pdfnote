@@ -19,7 +19,7 @@ internal class Program
 
         if (!File.Exists(configFile))
         {
-            Console.WriteLine($"Creating {configFile}.");
+            Console.WriteLine($"Creating sample - {configFile}.");
             DocumentModel doc = Sample.BuildDoc();
             string yaml = ToYaml(doc);
             Console.WriteLine(yaml);

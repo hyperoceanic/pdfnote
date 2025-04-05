@@ -32,6 +32,19 @@ public class NumberedPagesWriter : IPageSetWriter
                 .FontFamily(fontFamily)
                 .FontColor(fontColor);
 
+            IContainer CellStyle(IContainer container)
+            {
+                if (_model.Handedness == Handedness.Right)
+                    return container
+                        .Border(1F)
+                        .AlignRight()
+                        .Padding(20);
+                return container
+                    .Border(1)
+                    .AlignLeft()
+                    .Padding(10);
+            }
+
             page.Content()
                 .Table(table =>
                 {
@@ -52,16 +65,22 @@ public class NumberedPagesWriter : IPageSetWriter
 
                     for (var x = 0; x < _model.NumberedPages.PageCount; x++)
                         table.Cell().ColumnSpan(1)
-                            .SectionLink($"NumberedPages-{x}") // link to page
                             .Section($"NumberedPagesContent-{x}") // target for link back
                             .Element(CellStyle)
+                            .SectionLink($"NumberedPages-{x}") // link to page
                             .Text($"{x + 1}").FontSize(42F)
                             ;
 
                     IContainer CellStyle(IContainer container)
                     {
+                        if (_model.Handedness == Handedness.Right)
+                            return container
+                                .Border(1F)
+                                .AlignRight()
+                                .Padding(20);
                         return container
                             .Border(1)
+                            .AlignLeft()
                             .Padding(10);
                     }
                 });
@@ -91,7 +110,14 @@ public class NumberedPagesWriter : IPageSetWriter
             page.Header()
                 .Section($"NumberedPages-{index}")
                 .Height(100F)
-                ;
+                .SectionLink($"NumberedPagesContent-{index}")
+                .Text($"Page {index + 1}")
+                .AlignLeft()
+                .FontSize(40)
+                .FontFamily(fontFamily)
+                .FontColor(Color.FromHex("#d3d3d3"));
+
+            ;
         }
 
         void OnePage(PageDescriptor page, int index)

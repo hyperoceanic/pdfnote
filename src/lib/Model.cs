@@ -12,6 +12,13 @@ namespace PDFNote
         RemarkablePaperPro
     }
 
+    public enum Handedness
+    {
+        Left,
+        Right
+    }
+
+
     public class DocumentModel
     {
         public string FileName { get; set; }
@@ -19,6 +26,7 @@ namespace PDFNote
 
         public Reader Reader { get; set; }
         public Orientation Orientation { get; set; }
+        public Handedness Handedness { get; set; }
         public CoverModel Cover { get; set; }
         public NumberedPagesModel NumberedPages { get; set; }
     }
