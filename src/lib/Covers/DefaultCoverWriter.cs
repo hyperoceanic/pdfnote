@@ -60,7 +60,7 @@ public class DefaultCoverWriter : IPageSetWriter
     private void WriteCoverSymbol(ColumnDescriptor column, string fontFamily, Color fontColor, string symbol)
     {
         column.Item()
-            .PaddingTop(100F)
+            .PaddingTop(150F)
             .AlignCenter()
             .AlignMiddle()
             .Text(symbol)

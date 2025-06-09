@@ -1,10 +1,12 @@
-FileName: sample.pdf
-Title: Document Title
+FileName: /Users/marksmith/Projects/pdfnote/SL.pdf
+Title: Scott Logic Notes
 Reader: RemarkablePaperPro
 Orientation: Portrait
+Handedness: Left
 Cover:
-  Header: Document Header
-  Symbol: "\U0001683F"
-  Color: 01579B
+    Header: "Vol. 1, from May 2025"
+    # Symbol: "\U0001683F"
+    Color: 01579B
 NumberedPages:
     PageCount: 120
+    LinesPerPage: 30

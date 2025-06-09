@@ -111,11 +111,11 @@ public class NumberedPagesWriter : IPageSetWriter
             {
                 if (_model.Handedness == Handedness.Right)
                     return container
-                        .Border(1F)
+                     //   .Border(1F)
                         .AlignRight()
                         .Padding(20);
                 return container
-                    .Border(1)
+                   // .Border(1F)
                     .AlignLeft()
                     .Padding(10);
             }
@@ -138,7 +138,7 @@ public class NumberedPagesWriter : IPageSetWriter
                             .PaddingVertical(LineSpacing())
                             .AlignBottom()
                             .LineHorizontal(2)
-                            .LineColor(Colors.Black);
+                            .LineColor(Colors.Grey.Lighten1);
                 });
 
             page.Footer()
